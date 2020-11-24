@@ -1,5 +1,6 @@
-document.getElementById('my-king').addEventListener('click', function(e) {
-    let selectPiece = e.target.parentNode; // 駒の要素を取得(e.targetが<p>に反応しているため、parentNode使用)
+function onPiece(element) {
+    let selectPiece = element; // 駒の要素を取得
+
     let currentArea = selectPiece.parentNode; //駒のいるマス（親要素）を取得
     
     let currentCulumn = Number(currentArea.id[12]); //駒の存在するカラムの番号を取得
@@ -37,9 +38,41 @@ document.getElementById('my-king').addEventListener('click', function(e) {
         chooseArea_7.classList.add('choose-area');
         chooseArea_8.classList.add('choose-area');
     }
-});
+};
 
-// document.getElementsByClassName('column').addEventListener('click', function(e) {
-//     choosedArea = e.target.closest('.column');
-//     console.log(choosedArea.id);
-// });
+document.getElementById('shogi_board').addEventListener('click', function(e) {
+    let selectedArea = e.target; //クリックした要素を取得
+    let myKing = document.getElementById('my-king');
+    let myKingColumn = Number(myKing.parentNode.id[12]);
+    // 
+    if (selectedArea.classList.contains('choose-area')) { //クリックした場所が選択可能エリアだったら(choose-area)myKingを移動
+        if (selectedArea.id[12] == String(myKingColumn - 1)) {
+            myKing.classList.remove('shadow');
+            selectedArea.appendChild(myKing);
+            let allColumn = document.getElementsByClassName('column');
+            for (const column of allColumn) {
+                if (column.classList.contains('choose-area')) {
+                    column.classList.remove('choose-area');
+                }
+            }
+        } else if (selectedArea.id[12] == String(myKingColumn)) {
+            myKing.classList.remove('shadow');
+            selectedArea.appendChild(myKing);
+            let allColumn = document.getElementsByClassName('column');
+            for (const column of allColumn) {
+                if (column.classList.contains('choose-area')) {
+                    column.classList.remove('choose-area');
+                }
+            }
+        } else if (selectedArea.id[12] == String(myKingColumn + 1)) {
+            myKing.classList.remove('shadow');
+            selectedArea.appendChild(myKing);
+            let allColumn = document.getElementsByClassName('column');
+            for (const column of allColumn) {
+                if (column.classList.contains('choose-area')) {
+                    column.classList.remove('choose-area');
+                }
+            }
+        } 
+    }
+});
